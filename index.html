@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesquisa de Campo - Projeto QRStudy</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">QRStudy</div>
+      <h1>Pesquisa de Campo sobre a Saída dos Alunos</h1>
+      <p>Sua opinião nos ajudará a criar uma solução simples, segura e rápida para a rotina da escola.</p>
+      
+      <!-- BARRA DE PROGRESSO -->
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </header>
+
+    <form id="surveyForm">
+      <!-- PASSO 1: ESCOLHA DO PERFIL -->
+      <div class="form-step active" id="step-role">
+        <h2>Para começar, qual é a sua função na escola?</h2>
+        <p class="step-desc">Selecione seu cargo para ver as perguntas feitas especialmente para a sua rotina.</p>
+        
+        <div class="options-stack">
+          <label class="option-card radio-card">
+            <input type="radio" name="cargo" value="Direção / Gestão" required>
+            <div class="card-content">
+              <span class="icon">🏛️</span>
+              <div>
+                <span class="label-title">Direção / Gestão Escolar</span>
+                <span class="label-sub">Responsável pela administração geral, regras e decisões da escola.</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="option-card radio-card">
+            <input type="radio" name="cargo" value="Secretaria / Administração">
+            <div class="card-content">
+              <span class="icon">📂</span>
+              <div>
+                <span class="label-title">Secretaria / Atendimento</span>
+                <span class="label-sub">Cuida de cadastros, documentos, matrículas e fichas de alunos.</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="option-card radio-card">
+            <input type="radio" name="cargo" value="Inspetor / Portaria">
+            <div class="card-content">
+              <span class="icon">🚪</span>
+              <div>
+                <span class="label-title">Inspetor(a) / Monitor(a) de Portaria</span>
+                <span class="label-sub">Acompanha os alunos, organiza o portão e atende os pais na saída.</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="option-card radio-card">
+            <input type="radio" name="cargo" value="Professor">
+            <div class="card-content">
+              <span class="icon">👩‍🏫</span>
+              <div>
+                <span class="label-title">Professor(a)</span>
+                <span class="label-sub">Atua em sala de aula e orienta os alunos na hora de irem embora.</span>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnNextRole">Avançar para o Questionário →</button>
+      </div>
+
+      <!-- PASSO 2: DIREÇÃO -->
+      <div class="form-step" id="step-direcao">
+        <button type="button" class="btn-back">← Voltar e escolher outro perfil</button>
+        <h2>Questionário para Direção / Gestão Escolar</h2>
+        <p class="step-desc">Responda pensando na organização geral e na segurança da escola.</p>
+
+        <!-- P1 -->
+        <div class="question-block">
+          <label class="question-title">1. Qual é a maior dificuldade da escola hoje no momento da saída das crianças?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="direcao_desafio" value="Filas e trânsito na porta">
+              <span>Trânsito, aglomeração e filas longas na portaria</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_desafio" value="Risco de entregar para pessoa errada">
+              <span>Receio de entregar o aluno para alguém não autorizado</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_desafio" value="Demora no atendimento">
+              <span>Demora dos funcionários para conferir quem veio buscar a criança</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_desafio" value="Falta de registros históricos">
+              <span>Falta de um histórico claro de quem buscou cada aluno em determinado dia</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="question-block">
+          <label class="question-title">2. Como a escola se organiza hoje em relação à proteção de dados (LGPD) e fotos dos alunos?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="direcao_lgpd" value="Temos tudo formalizado">
+              <span>Já temos autorizações organizadas e política de privacidade definida</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_lgpd" value="Estamos organizando aos poucos">
+              <span>Estamos começando a organizar esses documentos agora</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_lgpd" value="Não temos algo formal">
+              <span>Ainda não temos um controle formal para isso</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="question-block">
+          <label class="question-title">3. Qual é o seu nível de interesse em adotar um aplicativo escolar para a saída dos alunos?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="direcao_interesse" value="Muito alto / Urgente">
+              <span>Muito alto — Precisamos urgentemente de algo para modernizar a saída</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_interesse" value="Interessa com treinamento">
+              <span>Tenho interesse, mas a equipe precisará de um treinamento simples</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_interesse" value="Tenho receio da adaptação dos pais">
+              <span>Tenho receio de que os pais ou funcionários achem difícil usar</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="question-block">
+          <label class="question-title">4. Por quanto tempo a escola gostaria de guardar o histórico de quem buscou cada criança?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="direcao_historico" value="Até 6 meses">
+              <span>Até 6 meses (apenas para o ano letivo atual)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_historico" value="1 a 3 anos">
+              <span>De 1 a 3 anos</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="direcao_historico" value="5 anos ou mais">
+              <span>5 anos ou mais (por questões jurídicas e de segurança)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P5 (ABERTA) -->
+        <div class="question-block">
+          <label class="question-title">5. Espaço aberto: Conte-nos um pouco sobre como é a rotina da saída hoje na sua visão e o que não pode faltar em um novo sistema.</label>
+          <textarea name="direcao_aberta" class="form-control" rows="4" placeholder="Escreva aqui suas ideias, preocupações ou observações..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar Minhas Respostas</button>
+      </div>
+
+      <!-- PASSO 3: SECRETARIA -->
+      <div class="form-step" id="step-secretaria">
+        <button type="button" class="btn-back">← Voltar e escolher outro perfil</button>
+        <h2>Questionário para Secretaria / Atendimento</h2>
+        <p class="step-desc">Responda pensando no cadastro e na papelada das famílias.</p>
+
+        <!-- P1 -->
+        <div class="question-block">
+          <label class="question-title">1. Onde ficam guardadas hoje as autorizações de quem pode buscar os alunos?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="secretaria_cadastro" value="Fichas de papel">
+              <span>Fichas ou pastas de papel impressas na secretaria</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_cadastro" value="Planilhas digitais">
+              <span>Planilhas no computador (Excel ou Google Sheets)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_cadastro" value="Sistema escolar antigo">
+              <span>Em um sistema próprio ou programa interno da escola</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_cadastro" value="Grupos de WhatsApp / Mensagens">
+              <span>Em conversas de WhatsApp ou anotações avulsas</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="question-block">
+          <label class="question-title">2. Quanto tempo costuma demorar para cadastrar ou alterar um responsável por um aluno?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="secretaria_tempo" value="Na mesma hora">
+              <span>Na mesma hora em que o pai solicita</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_tempo" value="Até 24 horas">
+              <span>Até 24 horas (precisa conferir documentos)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_tempo" value="Alguns dias">
+              <span>Vários dias, pois depende da assinatura de papéis físicos</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="question-block">
+          <label class="question-title">3. Com que frequência os pais pedem para um parente ou amigo tirar a criança de última hora?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="secretaria_frequencia" value="Muito frequente (todo dia)">
+              <span>Muito frequente — Acontece quase todos os dias</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_frequencia" value="Às vezes">
+              <span>Às vezes — Ocorre de 1 a 2 vezes por semana</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="secretaria_frequencia" value="Raro">
+              <span>Raro — Os responsáveis são quase sempre os mesmos</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P4 (ABERTA) -->
+        <div class="question-block">
+          <label class="question-title">4. Espaço aberto: Quais são os maiores problemas no cadastro atual e o que facilitaria o trabalho da secretaria no dia a dia?</label>
+          <textarea name="secretaria_aberta" class="form-control" rows="4" placeholder="Descreva como é o processo hoje e o que pode melhorar..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar Minhas Respostas</button>
+      </div>
+
+      <!-- PASSO 4: PORTARIA -->
+      <div class="form-step" id="step-portaria">
+        <button type="button" class="btn-back">← Voltar e escolher outro perfil</button>
+        <h2>Questionário para Inspetores / Portaria</h2>
+        <p class="step-desc">Responda de acordo com o que você vivencia na entrada e saída do portão.</p>
+
+        <!-- P1 -->
+        <div class="question-block">
+          <label class="question-title">1. Como você confirma se a pessoa no portão realmente pode levar o aluno?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="portaria_verificacao" value="De cabeça / Conheço de vista">
+              <span>Apenas de cabeça (já conheço os pais de vista)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_verificacao" value="Consulto folha de papel">
+              <span>Procuro o nome em uma folha impresso no portão</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_verificacao" value="Pergunto na secretaria pelo rádio/celular">
+              <span>Pergunto na secretaria via rádio ou telefone</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_verificacao" value="Peço documento com foto">
+              <span>Peço documento de identidade em caso de dúvida</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="question-block">
+          <label class="question-title">2. Nos horários mais cheios, quanto tempo a família espera até conseguir pegar a criança?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="portaria_tempo" value="Menos de 2 minutos">
+              <span>Menos de 2 minutos (é bem rápido)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_tempo" value="De 2 a 5 minutos">
+              <span>De 2 a 5 minutos</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_tempo" value="De 5 a 10 minutos">
+              <span>De 5 a 10 minutos (gera fila)</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_tempo" value="Mais de 10 minutos">
+              <span>Mais de 10 minutos (fica bastante confuso)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="question-block">
+          <label class="question-title">3. A portaria da escola tem celular, tablet ou internet funcionando bem?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="portaria_internet" value="Tem aparelho e internet boa">
+              <span>Sim, temos aparelho da escola e a internet pega bem no portão</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_internet" value="Internet falha no portão">
+              <span>Temos aparelho, mas o Wi-Fi falha ou oscila muito no portão</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_internet" value="Não temos aparelhos">
+              <span>Não temos nenhum celular/tablet disponível para a portaria</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="question-block">
+          <label class="question-title">4. Você acha que seria fácil usar um celular da escola para ler um QR Code (como no Pix) no portão?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="portaria_facilidade" value="Muito fácil / Já sei usar">
+              <span>Muito fácil — Já sei como funciona o QR Code</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_facilidade" value="Fácil com explicação rápida">
+              <span>Tranquilo, se me explicarem rapidamente como aperta na tela</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="portaria_facilidade" value="Acho complicado">
+              <span>Tenho receio de travar e atrasar ainda mais a fila</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P5 (ABERTA) -->
+        <div class="question-block">
+          <label class="question-title">5. Espaço aberto: Relate algum susto ou situação confusa que já aconteceu no portão na hora da saída.</label>
+          <textarea name="portaria_aberta" class="form-control" rows="4" placeholder="Exemplo: pais bravos, pessoa não autorizada tentando buscar, falta de comunicação..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar Minhas Respostas</button>
+      </div>
+
+      <!-- PASSO 5: PROFESSORES -->
+      <div class="form-step" id="step-professor">
+        <button type="button" class="btn-back">← Voltar e escolher outro perfil</button>
+        <h2>Questionário para Professores</h2>
+        <p class="step-desc">Responda pensando no momento em que os alunos saem da sala de aula.</p>
+
+        <!-- P1 -->
+        <div class="question-block">
+          <label class="question-title">1. Como você sabe que o responsável por um aluno seu chegou na portaria?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="prof_aviso" value="Sinal sonoro / Alarme">
+              <span>Sinal/alarme sonoro toca na escola</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_aviso" value="Inspetor vem buscar na porta da sala">
+              <span>O inspetor vem pessoalmente bater na porta da sala</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_aviso" value="Mensagem no celular">
+              <span>Recebo mensagem em grupo de WhatsApp ou aplicativo</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_aviso" value="Os alunos descem todos juntos no sinal">
+              <span>Os alunos simplesmente descem todos juntos ao bater o sinal</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="question-block">
+          <label class="question-title">2. Chamadas de alunos durante o final da aula atrapalham a sua explicação?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="prof_atrapalha" value="Sim, tira o foco dos demais">
+              <span>Sim, desconcentra os outros alunos e atrapalha o encerramento</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_atrapalha" value="Só quando chamam muitos de uma vez">
+              <span>Às vezes, principalmente quando chamam vários alunos seguidos</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_atrapalha" value="Não atrapalha">
+              <span>Não, o processo é bem calmo e organizado</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="question-block">
+          <label class="question-title">3. O que seria mais útil para você ter na sala de aula no momento da saída?</label>
+          <div class="options-stack">
+            <label class="option-card">
+              <input type="radio" name="prof_utilidade" value="Aviso silencioso no computador/celular">
+              <span>Um aviso silencioso surgindo na tela do computador/celular com o nome do aluno</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_utilidade" value="Lista de quem já foi liberado">
+              <span>Uma lista simples para conferir quem já foi embora e quem continua na sala</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="prof_utilidade" value="Painel na TV da sala">
+              <span>Um painel que possa ser projetado na TV da sala para os próprios alunos verem</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- P4 (ABERTA) -->
+        <div class="question-block">
+          <label class="question-title">4. Espaço aberto: Como professor(a), qual sugestão você daria para deixar a saída das crianças mais tranquila?</label>
+          <textarea name="prof_aberta" class="form-control" rows="4" placeholder="Escreva aqui suas sugestões ou experiências..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar Minhas Respostas</button>
+      </div>
+    </form>
+
+    <!-- TELA DE AGRADECIMENTO -->
+    <div id="thankYouScreen" class="hidden">
+      <div class="icon-success">🎉</div>
+      <h2>Resposta Registrada com Sucesso!</h2>
+      <p>Muito obrigado por contribuir com a nossa pesquisa de campo. Suas respostas ajudarão a construir uma escola mais segura e organizada para todos.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -250,3 +250,62 @@ body {
   font-size: 56px;
   margin-bottom: 16px;
 }
+
+/* TCLE: regras restritas ao novo modal */
+.tcle-modal {
+  margin: auto;
+  width: calc(100% - 40px);
+  max-width: 680px;
+  max-height: 90vh;
+  max-height: 90dvh;
+  padding: 32px;
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.tcle-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.tcle-modal::backdrop {
+  background-color: rgba(15, 23, 42, 0.5);
+}
+
+.tcle-modal .tcle-content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+}
+
+.tcle-modal .tcle-actions {
+  flex-shrink: 0;
+}
+
+.tcle-modal input[type="checkbox"] {
+  accent-color: var(--primary-color);
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.tcle-modal .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-height: 500px) {
+  .tcle-modal {
+    overflow-y: auto;
+  }
+
+  .tcle-modal .tcle-content {
+    flex-shrink: 0;
+  }
+}

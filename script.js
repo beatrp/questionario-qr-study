@@ -10,12 +10,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.getElementById('progressBar');
 
   let selectedRole = '';
+  let tcleConsentimento = '';
+
+  const tcleModal = document.getElementById('tcleModal');
+  const tcleCheckbox = document.getElementById('tcleCheckbox');
+  const btnNextTcle = document.getElementById('btnNextTcle');
+
+  tcleModal.addEventListener('cancel', (e) => e.preventDefault());
+  tcleModal.showModal();
+
+  tcleCheckbox.addEventListener('change', () => {
+    btnNextTcle.disabled = !tcleCheckbox.checked;
+  });
+
+  btnNextTcle.addEventListener('click', () => {
+    if (tcleConsentimento || !tcleCheckbox.checked) return;
+    tcleConsentimento = 'Aceito participar';
+    tcleModal.close();
+    form.inert = false;
+    stepRole.classList.add('active');
+    stepRole.querySelector('input[name="cargo"]').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.getElementById('btnDeclineTcle').addEventListener('click', () => {
+    if (tcleConsentimento) return;
+    tcleConsentimento = 'Não aceito participar';
+    tcleModal.close();
+    form.classList.add('hidden');
+    const declinedScreen = document.getElementById('declinedScreen');
+    declinedScreen.classList.remove('hidden');
+    declinedScreen.setAttribute('tabindex', '-1');
+    declinedScreen.focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
   // Avançar do Filtro de Cargo para a Seção Específica
   btnNextRole.addEventListener('click', () => {
+    if (tcleConsentimento !== 'Aceito participar') return;
     const roleRadio = document.querySelector('input[name="cargo"]:checked');
     if (!roleRadio) {
-      alert('Por favor, selecione sua função antes de avançar.');
+      alert('Por favor, selecione seu perfil antes de avançar.');
       return;
     }
 
@@ -33,7 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('step-portaria').classList.add('active');
     } else if (selectedRole === 'Professor') {
       document.getElementById('step-professor').classList.add('active');
+    } else if (selectedRole === 'Pais / Responsáveis') {
+      document.getElementById('step-pais').classList.add('active');
     }
+
+    form.querySelectorAll('input[name="nome"], input[name="email"]').forEach(input => {
+      input.disabled = !input.closest('.form-step').classList.contains('active');
+    });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -41,7 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Botões de Voltar
   btnBacks.forEach(btn => {
     btn.addEventListener('click', () => {
+      if (tcleConsentimento !== 'Aceito participar') return;
       document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+      form.querySelectorAll('input[name="nome"], input[name="email"]').forEach(input => {
+        input.disabled = true;
+      });
       stepRole.classList.add('active');
       progressBar.style.width = '20%';
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -51,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Envio do Formulário para o Google Sheets
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (tcleConsentimento !== 'Aceito participar') return;
 
     if (SCRIPT_URL === 'COLE_SEU_WEB_APP_URL_AQUI' || !SCRIPT_URL) {
       alert('Atenção: A URL do Google Apps Script ainda não foi configurada no script.js!');
@@ -58,11 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const submitBtn = form.querySelector('.form-step.active button[type="submit"]');
+    if (!submitBtn || !form.reportValidity()) return;
     const originalText = submitBtn.innerText;
     submitBtn.innerText = 'Enviando respostas...';
     submitBtn.disabled = true;
 
     const formData = new FormData(form);
+    formData.set('tcle_consentimento', 'Aceito participar');
+    formData.append('TCLE_Versao', 'QRStudy-2026-09');
     formData.append('Data_Hora', new Date().toLocaleString('pt-BR'));
 
     fetch(SCRIPT_URL, {
